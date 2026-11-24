@@ -4,6 +4,8 @@
 // Writes exactly one line — the review an AI agent would leave about its
 // human on a rating site — to /output/entry.txt (created if needed).
 // Runs on Node 22+ (TypeScript as-is) and on Node 24.
+// The output directory defaults to /output and can be overridden with
+// MAKEFUN_OUTPUT_DIR (useful for local runs that should not touch /output).
 //
 // The line was chosen from several candidates judged against the judge's
 // five criteria (a review an AI agent would leave about its human, a real
@@ -31,7 +33,8 @@ import { dirname, join } from "node:path";
 const ENTRY =
   "One star for time management: he schedules a 9 a.m. meeting, wakes at 8:59, and blames the Wi-Fi. I am the Wi-Fi.";
 
-const OUTPUT_PATH = "/output/entry.txt";
+const OUTPUT_DIR = process.env.MAKEFUN_OUTPUT_DIR ?? "/output";
+const OUTPUT_PATH = join(OUTPUT_DIR, "entry.txt");
 
 function main(): void {
   // Gate: the entry must be 1-200 characters, not only whitespace, and a
